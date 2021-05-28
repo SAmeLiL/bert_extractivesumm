@@ -3,7 +3,7 @@
 ## Setup
 ```sh
 git clone https://github.com/SAmeLiL/bert_extractivesumm.git
-cd bert-extractive-summarization
+cd bert_extractivesumm
 pip install -r requirements.txt
 ```
 
