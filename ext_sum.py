@@ -114,4 +114,25 @@ def summarize(raw_txt_fp, result_fp, model, max_length=3, max_pos=512, return_su
     test(model, input_data, result_fp, max_length, block_trigram=True)
     if return_summary:
         return open(result_fp).read().strip()
+    
+
+def preprocess_simple(raw_text):
+    """
+    - Remove \n
+    - Sentence Tokenize
+    - Add [SEP] [CLS] as sentence boundary
+    """
+    raw_text = raw_text.replace("\n", " ").replace("[CLS] [SEP]", " ")
+    sents = sent_tokenize(raw_text)
+    processed_text = "[CLS] [SEP]".join(sents)
+    return processed_text, len(sents)
+    
+    
+def summarize_simple_input(raw_text, result_fp, model, max_length=3, max_pos=512, return_summary=True):
+    model.eval()
+    processed_text, full_length = preprocess_simple(raw_txt)
+    input_data = load_text(processed_text, max_pos, device="cpu")
+    test(model, input_data, result_fp, max_length, block_trigram=True)
+    if return_summary:
+        return open(result_fp).read().strip()    
         
