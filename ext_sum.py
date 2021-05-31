@@ -130,7 +130,7 @@ def preprocess_simple(raw_text):
     
 def summarize_simple_input(raw_text, result_fp, model, max_length=3, max_pos=512, return_summary=True):
     model.eval()
-    processed_text, full_length = preprocess_simple(raw_txt)
+    processed_text, full_length = preprocess_simple(raw_text)
     input_data = load_text(processed_text, max_pos, device="cpu")
     test(model, input_data, result_fp, max_length, block_trigram=True)
     if return_summary:
